@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from users.models import User
+from users.models import Profile
 
 
 class EnglishClass(models.Model):
@@ -11,8 +11,8 @@ class EnglishClass(models.Model):
     date = models.DateField()
     time_start = models.TimeField()
     time_end = models.TimeField()
-    teacher = models.ForeignKey(User, on_delete=models.CASCADE, related_name='teacher')
-    students = models.ForeignKey(User, on_delete=models.CASCADE, related_name='students')
+    teacher = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='teacher')
+    students = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='students')
     eventId = models.CharField(max_length=256)
     status = models.CharField(
         max_length=10,
