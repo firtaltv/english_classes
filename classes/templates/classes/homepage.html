@@ -1,0 +1,15 @@
+{% extends 'classes/base.html' %}
+{% block title %} Home {% endblock %}
+{% block content %}
+      {% for class in classes %}
+          <div class="card">
+              <a href="#"></a>
+              <h5 class="card-title">{{ class.date }}</h5>
+              <div class="card-body">
+                  <p class="card-text">{{ class.teacher }}</p>
+                  <p class="card-text">{{ class.eventId }}</p>
+              </div>
+          </div><br>
+      {% endfor %}
+
+{% endblock %}

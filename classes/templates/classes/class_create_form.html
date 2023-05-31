@@ -1,0 +1,23 @@
+{% extends 'classes/base.html' %}
+{% load rest_framework %}
+{% block title %} Home {% endblock %}
+{% block content %}
+      <div class="features">
+        <h1>Create a new class</h1><br>
+        <form method="POST" action="{% url 'class_create_form' %}" class="form-horizontal">
+            {% csrf_token %}
+            <label>
+                <input type="date" value="date" name="date">
+            </label><br>
+            <label>
+                <input type="time" value="time_start" name="time_start">
+            </label><br>
+            <label>
+                <input type="time" value="time_end" name="time_end">
+            </label><br>
+            <input type="submit" value="Save">
+            <!--<button class="btn btn-success" type="submit">Create!</button>-->
+        </form>
+    </div>
+
+{% endblock %}

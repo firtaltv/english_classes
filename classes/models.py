@@ -20,5 +20,5 @@ class EnglishClass(models.Model):
         default=Status.ToBeDone,
     )
 
-    # def __str__(self):
-    #     return self.teacher.name
+    def __str__(self):
+        return str(self.date)

@@ -1,0 +1,34 @@
+body {
+    background-color: #f7f7f7;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding-left: 0;
+}
+a {text-decoration: none;}
+ul { display: flex; }
+a {display: block; }
+
+@import url('https://fonts.googleapis.com/css?family=Arimo');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Nunito');
+.top-menu {
+  background: rgba(255,255,255,.5);
+  box-shadow: 1px 0 7px rgba(0,0,0,.3);
+  padding: 20px;
+}
+.top-menu:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.navbar-logo {
+    display: inline-block;
+    margin-left: 200px;
+    font-family: 'Great Vibes', cursive;
+    font-size: 40px;
+    text-decoration:none;
+    color: black;
+}
+.navbar-logo img { width: 50px; height: 50px; margin-top: 5px; margin-left: 10px}
