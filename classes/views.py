@@ -1,4 +1,4 @@
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from .models import EnglishClass
 from users.models import User
@@ -51,4 +51,21 @@ class ClassCreateAPIView(CreateAPIView):
 
 
 class EnglishClassUpdateAPIView(UpdateAPIView):
-    pass
+    queryset = EnglishClass.objects.all()
+    # permission_classes = [IsAuthenticated]
+    serializer_class = EnglishClassSerializer
+    renderer_classes = [TemplateHTMLRenderer]
+    template_name = 'classes/class_update_form.html'
+
+    def get(self, request, pk):
+        inst = get_object_or_404(EnglishClass, pk=pk)
+        serializer = EnglishClassSerializer(inst)
+        return Response({'serializer': serializer, 'inst': inst})
+
+    def post(self, request, *args, **kwargs):
+        serializer = self.get_serializer()
+        print(request.data)
+        if not serializer.is_valid():
+            return Response({'serializer': serializer})
+        serializer.save()
+        return redirect('class_update_form')
