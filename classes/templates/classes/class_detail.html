@@ -1,5 +1,8 @@
 {% extends 'classes/base.html' %}
 {% block title %} Home {% endblock %}
 {% block content %}
-<!--class details-->{{ class.date }}
+{{ class.date }}<br>
+{{ class.teacher.name }}<br>
+{{ class.time_start }}<br>
+{{ class.time_end }}<br>
 {% endblock %}

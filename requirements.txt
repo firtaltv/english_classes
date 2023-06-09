@@ -3,3 +3,5 @@ backports.zoneinfo==0.2.1
 Django==4.2.1
 sqlparse==0.4.4
 djangorestframework==3.14.0
+django-allauth==0.54.0
+djangorestframework_simplejwt==5.2.0

@@ -6,6 +6,9 @@
         <h1>Create a new class</h1><br>
         <form method="POST" action="{% url 'class_create_form' %}" class="form-horizontal">
             {% csrf_token %}
+                <div class="input-group mb-3">
+                    <input type="date" class="form-control" value="date" name="date" placeholder="Date" aria-label="Lesson's date" aria-describedby="basic-addon2">
+                </div>
             <label>
                 <input type="date" value="date" name="date">
             </label><br>

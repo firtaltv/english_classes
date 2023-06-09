@@ -1,0 +1,14 @@
+{% extends 'classes/base.html' %}
+{% load rest_framework %}
+{% block title %} Edit Lesson {% endblock %}
+{% block content %}
+      <div class="features">
+        <h1>Edit lesson</h1><br>
+        <form method="POST" action="{% url 'class_update_form' inst.pk %}" class="form-horizontal">
+            {% csrf_token %}
+            {% render_form serializer %}
+            <input type="submit" value="Save">
+        </form>
+    </div>
+
+{% endblock %}
