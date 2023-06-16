@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
-    path('', TemplateView.as_view(template_name="index.html")),
+    path('', TemplateView.as_view(template_name="classes/homepage.html")),
     path('logout', LogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
     path('classes/', include('classes.urls')),

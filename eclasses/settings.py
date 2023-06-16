@@ -80,6 +80,8 @@ TEMPLATES = [
     },
 ]
 
+STATICFILES_DIRS = [BASE_DIR / "assets"]
+
 WSGI_APPLICATION = 'eclasses.wsgi.application'
 
 
@@ -162,6 +164,7 @@ SIMPLE_JWT = {
 
 USE_SESSION_AUTH = True
 LOGIN_REDIRECT_URL = '/classes/list'
+LOGOUT_REDIRECT_URL = '/'
 
 ALLOWED_EMAIL_DOMAINS = [
     'gmail.com'

@@ -18,7 +18,14 @@
     <main>
         <nav class="navbar bg-dark border-bottom border-bottom-dark" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="/classes/list">English Classes</a>
+                <a class="navbar-brand" href="/">English Classes</a>
+                <a class="navbar-brand" href="{% url 'classes_list' %}">All Classes</a>
+                <a class="navbar-brand" href="/">Teachers</a>
+                {% if user.is_authenticated %}
+                    <a class="navbar-brand" href="{% url 'logout' %}">Log Out</a>
+                {% else %}
+                    <a class="navbar-brand" href="/accounts/google/login/">Log In</a>
+                {% endif %}
             </div>
         </nav>
         {% block content %}

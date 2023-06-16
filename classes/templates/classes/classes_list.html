@@ -1,0 +1,14 @@
+{% extends 'classes/base.html' %}
+{% block title %} Classes List {% endblock %}
+{% block content %}
+{% for class in classes %}
+    <div class="card-list">
+        <div class="card-body">
+            <h5 class="card-title">{{ class.date }}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">Tutor - {{ class.teacher }}</h6>
+            <p class="card-text">{{ class.time_start }} - {{ class.time_end }}</p>
+            <a href="{% url 'class_detail' class.pk %}" class="card-link">View class</a>
+        </div>
+    </div><br>
+{% endfor %}
+{% endblock %}
