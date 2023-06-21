@@ -1,6 +1,9 @@
 {% extends 'classes/base.html' %}
 {% block title %} Classes List {% endblock %}
 {% block content %}
+{% if user.status == 'Teacher' %}
+    <a href="{% url 'class_create_form' %}">Add Your Lessons</a>
+{% endif %}
 {% for class in classes %}
     <div class="card-list">
         <div class="card-body">

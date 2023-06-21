@@ -58,17 +58,35 @@ class ClassValidationMixin:
         start = request_data.get("time_start")
         end = request_data.get("time_end")
         qs = qs.filter(date=request_data.get("date")).filter(teacher__pk=user_pk)
+        inst_pk = request_data.get('inst_pk', None)
+        print(request_data)
         for lesson in qs:
-            if not all(
-                (
-                    start < lesson.time_start or lesson.time_end <= start,
-                    end <= lesson.time_start or lesson.time_end < end,
-                )
-            ):
-                return Response(
-                    status=HTTP_409_CONFLICT,
-                    data="Can not create two lessons if any time border in other lesson!",
-                )
+            if not inst_pk:
+                if not all(
+                    (
+                        start < lesson.time_start or lesson.time_end <= start,
+                        end <= lesson.time_start or lesson.time_end < end,
+                    )
+                ):
+                    return Response(
+                        status=HTTP_409_CONFLICT,
+                        data="Can not create two lessons if any time border in other lesson!",
+                    )
+            else:
+                if not all(
+                    (
+                            (start < lesson.time_start and lesson.pk == inst_pk)
+                            or (lesson.time_end <= start and lesson.pk == inst_pk),
+
+                            (end <= lesson.time_start and lesson.pk == inst_pk)
+                            or (lesson.time_end < end and lesson.pk == inst_pk),
+                    )
+                ):
+                    return Response(
+                        status=HTTP_409_CONFLICT,
+                        data="Can not create two lessons if any time border in other lesson!",
+                    )
+
 
     @staticmethod
     def validate_time_end_greater(request_data, user_pk, request, qs):

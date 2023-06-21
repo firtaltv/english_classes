@@ -1,8 +1,23 @@
 {% extends 'classes/base.html' %}
 {% block title %} Home {% endblock %}
 {% block content %}
-{{ class.date }}<br>
-{{ class.teacher.name }}<br>
-{{ class.time_start }}<br>
-{{ class.time_end }}<br>
+    <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+        <div class="card-header">{{ class.date }}</div>
+        <div class="card-body">
+            <h5 class="card-title">{{ class.teacher.username }}</h5>
+            <p class="card-text">{{ class.teacher.username }}'s english lesson</p><br>
+            <p class="card-text">Time: {{ class.time_start }} - {{ class.time_end }}</p>
+            {% if class.teacher.status == 'Teacher'%}
+                {% if user.pk == class.teacher.pk %}
+                    <a href="{% url 'class_update_form' class.pk %}">Edit Lesson</a>
+                    <form method="post" action="{% url 'class_detail' class.pk %}">
+                        {% csrf_token %}
+                        <input type="submit" value="delete">
+                    </form>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+
 {% endblock %}

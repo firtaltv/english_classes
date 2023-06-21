@@ -1,0 +1,12 @@
+{% extends 'classes/base.html' %}
+{% block title %} Classes List {% endblock %}
+{% block content %}
+{% for teacher in teachers %}
+    <div class="card-list">
+        <div class="card-body">
+            <h5 class="card-title">{{ teacher.username }}</h5>
+            <p class="card-text">{{ teacher.status }}</p>
+        </div>
+    </div><br>
+{% endfor %}
+{% endblock %}
