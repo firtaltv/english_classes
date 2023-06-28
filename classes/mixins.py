@@ -46,12 +46,20 @@ class ClassValidationMixin:
         start = request_data.get("time_start")
         end = request_data.get("time_end")
         qs = qs.filter(date=request_data.get("date")).filter(teacher__pk=user_pk)
+        inst_pk = request_data.get('inst_pk', None)
         for lesson in qs:
             if all((lesson.time_start == start, lesson.time_end == end)):
+                if not inst_pk:
+                    return Response(
+                        status=HTTP_409_CONFLICT,
+                        data="Can not create two lessons overlapping!",
+                    )
                 return Response(
                     status=HTTP_409_CONFLICT,
-                    data="Can not create two lessons overlapping!",
+                    data="Can not update to the same time!",
                 )
+
+
 
     @staticmethod
     def validate_class_time_borders(request_data, user_pk, request, qs):
@@ -73,20 +81,21 @@ class ClassValidationMixin:
                         data="Can not create two lessons if any time border in other lesson!",
                     )
             else:
-                if not all(
-                    (
-                            (start < lesson.time_start and lesson.pk == inst_pk)
-                            or (lesson.time_end <= start and lesson.pk == inst_pk),
-
-                            (end <= lesson.time_start and lesson.pk == inst_pk)
-                            or (lesson.time_end < end and lesson.pk == inst_pk),
+                status = False
+                if qs.count() == 1:
+                    return None
+                if inst_pk != lesson.pk:
+                    status = not all(
+                        (
+                            start < lesson.time_start or lesson.time_end <= start,
+                            end <= lesson.time_start or lesson.time_end < end,
+                        )
                     )
-                ):
-                    return Response(
-                        status=HTTP_409_CONFLICT,
-                        data="Can not create two lessons if any time border in other lesson!",
-                    )
-
+                    if status:
+                        return Response(
+                            status=HTTP_409_CONFLICT,
+                            data="Can not update lessons if any time border in other lesson!",
+                        )
 
     @staticmethod
     def validate_time_end_greater(request_data, user_pk, request, qs):

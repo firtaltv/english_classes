@@ -2,6 +2,7 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView, RetrieveUpdate
 from rest_framework.permissions import IsAuthenticated
 from .models import EnglishClass
 from users.models import User
+from .google_calendar import CalendarManager
 from .serializers import EnglishClassSerializer, UserSerializer
 from rest_framework.renderers import TemplateHTMLRenderer
 from rest_framework.response import Response
@@ -38,6 +39,7 @@ class EnglishClassRetrieveAPIView(RetrieveUpdateDestroyAPIView):
     def post(self, request, *args, **kwargs):
         instance = self.get_object()
         self.perform_destroy(instance)
+        CalendarManager().delete_event(instance.eventId)
         return redirect('classes_list')
 
 
@@ -63,6 +65,18 @@ class ClassCreateAPIView(ListCreateAPIView, ClassValidationMixin):
         response = self.validate(class_to_create, request.user.pk, request, self.get_queryset())
         if response:
             return Response({'exc': response.data})
+        eventId = CalendarManager().create_event(
+            start_time=datetime.combine(
+                datetime.strptime(request.data.get('date'), '%Y-%m-%d').date(),
+                datetime.strptime(request.data.get('time_start'), '%H:%M').time()
+            ),
+            end_time=datetime.combine(
+                datetime.strptime(request.data.get('date'), '%Y-%m-%d').date(),
+                datetime.strptime(request.data.get('time_end'), '%H:%M').time()
+            ),
+            event_name=f"{User.objects.get(pk=pk).username}'s Lesson"
+        )
+        class_to_create['eventId'] = eventId
         EnglishClass.objects.bulk_create([EnglishClass(**class_to_create)])
         return redirect('classes_list')
 
@@ -96,7 +110,6 @@ class EnglishClassUpdateAPIView(UpdateAPIView, ClassValidationMixin):
             'inst_pk': inst.pk
         }
         response = self.validate(class_to_update, request.user.pk, request, self.get_queryset())
-        print(response.data)
         if response:
             self.exc = response.data
             return Response({'serializer': serializer, 'inst': inst, 'exc': self.exc})
@@ -108,7 +121,15 @@ class EnglishClassUpdateAPIView(UpdateAPIView, ClassValidationMixin):
         lesson.date = data.get('date')
         lesson.time_start = data.get('time_start')
         lesson.time_end = data.get('time_end')
+        start_time = datetime.combine(data.get('date'), data.get('time_start'))
+        end_time = datetime.combine(data.get('date'), data.get('time_end'))
+        CalendarManager().update_event(
+            start_time=start_time,
+            end_time=end_time,
+            eventid=lesson.eventId
+        )
         EnglishClass.objects.bulk_update([lesson], ['date', 'time_start', 'time_end'])
+
 
 
 class TeachersListAPIView(ListAPIView):
