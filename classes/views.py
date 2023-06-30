@@ -51,7 +51,6 @@ class ClassCreateAPIView(ListCreateAPIView, ClassValidationMixin):
     template_name = 'classes/class_create_form.html'
 
     def post(self, request, *args, **kwargs):
-        print(request.data)
         if request.data.get('teacher'):
             pk = request.data.get('teacher')
         else:
@@ -60,7 +59,8 @@ class ClassCreateAPIView(ListCreateAPIView, ClassValidationMixin):
             'date': datetime.strptime(request.data.get('date'), '%Y-%m-%d').date(),
             'time_start': datetime.strptime(request.data.get('time_start'), '%H:%M').time(),
             'time_end': datetime.strptime(request.data.get('time_end'), '%H:%M').time(),
-            'teacher': User.objects.get(pk=pk)
+            'teacher': User.objects.get(pk=pk),
+            'level': request.data.get('level')
         }
         response = self.validate(class_to_create, request.user.pk, request, self.get_queryset())
         if response:
@@ -107,6 +107,7 @@ class EnglishClassUpdateAPIView(UpdateAPIView, ClassValidationMixin):
             'time_start': datetime.strptime(serializer.data.get('time_start'), '%H:%M:%S').time(),
             'time_end': datetime.strptime(serializer.data.get('time_end'), '%H:%M:%S').time(),
             'teacher': serializer.data.get('teacher'),
+            'level': serializer.data.get('level'),
             'inst_pk': inst.pk
         }
         response = self.validate(class_to_update, request.user.pk, request, self.get_queryset())
@@ -121,6 +122,7 @@ class EnglishClassUpdateAPIView(UpdateAPIView, ClassValidationMixin):
         lesson.date = data.get('date')
         lesson.time_start = data.get('time_start')
         lesson.time_end = data.get('time_end')
+        lesson.level = data.get('level')
         start_time = datetime.combine(data.get('date'), data.get('time_start'))
         end_time = datetime.combine(data.get('date'), data.get('time_end'))
         CalendarManager().update_event(
@@ -128,8 +130,7 @@ class EnglishClassUpdateAPIView(UpdateAPIView, ClassValidationMixin):
             end_time=end_time,
             eventid=lesson.eventId
         )
-        EnglishClass.objects.bulk_update([lesson], ['date', 'time_start', 'time_end'])
-
+        EnglishClass.objects.bulk_update([lesson], ['date', 'time_start', 'time_end', 'level'])
 
 
 class TeachersListAPIView(ListAPIView):

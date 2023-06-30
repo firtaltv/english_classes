@@ -8,11 +8,21 @@ class EnglishClass(models.Model):
         ToBeDone = 'ToBeDone', _('To be Done')
         InProgress = 'InProgress', _('In Progress')
         Done = 'Done', _('Done')
+
+    class Level(models.TextChoices):
+        A = 'A', _('A')
+        B = 'B', _('B')
+        C = 'C', _('C')
     date = models.DateField()
     time_start = models.TimeField()
     time_end = models.TimeField()
     teacher = models.ForeignKey(User, on_delete=models.CASCADE, related_name='teacher')
     students = models.ManyToManyField(User, related_name='students')
+    level = models.CharField(
+        max_length=5,
+        choices=Level.choices,
+        default=Level.A
+    )
     eventId = models.CharField(max_length=256)
     status = models.CharField(
         max_length=10,

@@ -4,7 +4,7 @@
     <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
         <div class="card-header">{{ class.date }}</div>
         <div class="card-body">
-            <h5 class="card-title">{{ class.teacher.username }}</h5>
+            <h5 class="card-title">{{ class.teacher.username }} | Level - {{ class.level }}</h5>
             <p class="card-text">{{ class.teacher.username }}'s english lesson</p><br>
             <p class="card-text">Time: {{ class.time_start }} - {{ class.time_end }}</p>
             {% if class.teacher.status == 'Teacher'%}

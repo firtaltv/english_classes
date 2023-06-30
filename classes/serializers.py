@@ -6,7 +6,7 @@ from users.models import User
 class EnglishClassSerializer(ModelSerializer):
     class Meta:
         model = EnglishClass
-        fields = ('date', 'time_start', 'time_end', 'teacher')
+        fields = ('date', 'time_start', 'time_end', 'teacher', 'level')
 
 
 class UserSerializer(ModelSerializer):
