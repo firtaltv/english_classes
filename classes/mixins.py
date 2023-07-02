@@ -13,7 +13,7 @@ class ClassValidationMixin:
         checklist = [
             self.validate_request_user,
             self.validate_date,
-            self.validate_time,
+            # self.validate_time,
             self.validate_time_end_greater,
             self.validate_class_overlap,
             self.validate_class_time_borders,
@@ -43,17 +43,20 @@ class ClassValidationMixin:
                 data="Can not create lessons for past days!",
             )
 
-    @staticmethod
-    def validate_time(request_data, user_pk, request, qs):
-        mins = request_data.get("time_start").minute
-        hours = request_data.get("time_start").hour
-        if datetime.now().replace(
-            hour=hours, minute=mins, second=0, microsecond=0
-        ) < datetime.now().replace(hour=hours + 3):
-            return Response(
-                status=HTTP_400_BAD_REQUEST,
-                data="Can not create lessons for past time!",
-            )
+    # @staticmethod
+    # def validate_time(request_data, user_pk, request, qs):
+    #     mins = request_data.get("time_start").minute
+    #     hours = request_data.get("time_start").hour
+    #     print(datetime.now().replace(
+    #         hour=hours, minute=mins))
+    #     print(datetime.now().replace(hour=hours - 4))
+    #     if datetime.now().replace(
+    #         hour=hours, minute=mins, second=0, microsecond=0
+    #     ) < datetime.now().replace(hour=hours + 3):
+    #         return Response(
+    #             status=HTTP_400_BAD_REQUEST,
+    #             data="Can not create lessons for past time!",
+    #         )
 
     @staticmethod
     def validate_class_overlap(request_data, user_pk, request, qs):

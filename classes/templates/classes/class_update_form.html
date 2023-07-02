@@ -3,13 +3,19 @@
 {% block title %} Edit Lesson {% endblock %}
 {% block content %}
       <div class="features">
+          <div style="text-align: center;">
         <h1>Edit lesson</h1><br>
+              </div>
+          <div class="update-lesson">
         <form method="POST" action="{% url 'class_update_form' inst.pk %}" class="form-horizontal">
             {% csrf_token %}
-            {% render_form serializer %}
-            <input type="submit" value="Save">
+            {% render_form serializer %}<br>
+            <div style="text-align: center;">
+                <input type="submit" value="Save">
+                </div>
+            <p style="color: red;">{{ exc }}</p>
         </form>
+              </div>
     </div>
-    {{ exc }}
 
 {% endblock %}

@@ -1,13 +1,13 @@
 body {
-    background: url("bigben.jpg")no-repeat center center fixed;
-    background-size: 120%;
+    background: url("london.jpg")no-repeat center center fixed;
+    background-size: 100%;
 }
 
 .card-list {
     width: 300px;
     height: 150px;
     border: 0.3px solid;
-    background-color: #98C578;
+    background-color: #f3eeba;
     position: relative;
     top: 50%;
     left: 50%;
@@ -27,11 +27,44 @@ body {
     text-align: center;
 }
 
+.detail{
+
+    margin: auto;
+     margin-top: 20px;
+    border: 0.3px solid white;
+    padding: 3px 6px;
+    background-color: #f3eeba;
+    border-radius: 10px;
+    box-shadow: 3px 3px rgba(21, 21, 21, 0.62), -0.5em 0 .4em rgba(21, 21, 21, 0.62);
+}
+
+
+.form {
+    border-radius: 10px;
+    border: 5px solid;
+    margin: auto;
+    width: 30%;
+    padding: 10px;
+    background-color: #f3eeba;
+    box-shadow: 3px 3px rgba(21, 21, 21, 0.62), -0.5em 0 .4em rgba(21, 21, 21, 0.62);
+}
+
 ul {
   list-style: none;
   margin: 0;
   padding-left: 0;
 }
+
+.update-lesson{
+    width: 30%;
+    margin: auto;
+    border: 0.3px solid white;
+    padding: 3px 6px;
+    background-color: #f3eeba;
+    border-radius: 10px;
+    box-shadow: 3px 3px rgba(21, 21, 21, 0.62), -0.5em 0 .4em rgba(21, 21, 21, 0.62);
+}
+
 a {text-decoration: none;}
 ul { display: flex; }
 a {display: block; }

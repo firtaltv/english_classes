@@ -2,7 +2,7 @@
 {% block title %} Classes List {% endblock %}
 {% block content %}
 {% if user.status == 'Teacher' %}
-    <a href="{% url 'class_create_form' %}">Add Your Lessons</a>
+    <a href="{% url 'class_create_form' %}" class="new-lesson">Add Your Lessons</a>
 {% endif %}
 {% for class in classes %}
     <div class="card-list">
