@@ -3,31 +3,57 @@
 {% block title %} Home {% endblock %}
 {% block content %}
       <div class="features">
-        <h1>Create a new class</h1><br>
-        <form method="POST" action="{% url 'class_create_form' %}" class="form-horizontal">
-            {% csrf_token %}
-            <label>
-                <input type="date" value="date" name="date">
-            </label><br>
-            <label>
-                <input type="time" value="time_start" name="time_start">
-            </label><br>
-            <label>
-                <input type="time" value="time_end" name="time_end">
-            </label><br>
-            <label>
-                <input type="radio" value="A" name="level">A
-            </label><br>
-            <label>
-                <input type="radio" value="B" name="level">B
-            </label><br>
-            <label>
-                <input type="radio" value="C" name="level">C
-            </label><br>
-            <input type="submit" value="Save">
-            <!--<button class="btn btn-success" type="submit">Create!</button>-->
-        </form>
-          {{ exc }}
+          <div style="text-align: center;">
+            <h1>Create a new class</h1><br>
+          </div>
+          <div class="form" style="text-align: center;">
+            <form method="POST" action="{% url 'class_create_form' %}" class="form-horizontal">
+                {% csrf_token %}
+                <label>
+                    Date:<input type="date" value="date" name="date">
+                </label><br>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                <label>
+                    Start time:<input type="time" value="time_start" name="time_start">
+                </label><br>
+                <label>
+                    End time:<input type="time" value="time_end" name="time_end">
+                </label></div>
+                <br> <div style="text-align: center;">
+                    Lesson level:<br>
+                </div>
+                <div style="display: flex; justify-content: space-between;">
+                    <div>
+                        <label>
+                            <input type="radio" value="A1" name="level">A1
+                        </label><br>
+                        <label>
+                            <input type="radio" value="A2" name="level">A2
+                        </label><br>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="radio" value="B1" name="level">B1
+                        </label><br>
+                        <label>
+                            <input type="radio" value="B2" name="level">B2
+                        </label><br>
+                    </div>
+                    <div>
+                        <label>
+                            <input type="radio" value="C1" name="level">C1
+                        </label><br>
+                        <label>
+                            <input type="radio" value="C2" name="level">C2
+                        </label><br>
+                    </div>
+                </div>
+                <div style="text-align: center;"><br>
+                <input type="submit" value="Save"><br>
+                </div>
+                <p style="color: red;">{{ exc }}</p>
+                <!--<button class="btn btn-success" type="submit">Create!</button>-->
+            </form>
+          </div>
     </div>
-
 {% endblock %}

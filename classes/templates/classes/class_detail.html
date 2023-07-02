@@ -1,7 +1,7 @@
 {% extends 'classes/base.html' %}
 {% block title %} Home {% endblock %}
 {% block content %}
-    <div class="card text-bg-dark mb-3" style="max-width: 18rem;">
+    <div class="detail" style="max-width: 18rem;">
         <div class="card-header">{{ class.date }}</div>
         <div class="card-body">
             <h5 class="card-title">{{ class.teacher.username }} | Level - {{ class.level }}</h5>
@@ -10,6 +10,7 @@
             {% if class.teacher.status == 'Teacher'%}
                 {% if user.pk == class.teacher.pk %}
                     <a href="{% url 'class_update_form' class.pk %}">Edit Lesson</a>
+                        <br>
                     <form method="post" action="{% url 'class_detail' class.pk %}">
                         {% csrf_token %}
                         <input type="submit" value="delete">

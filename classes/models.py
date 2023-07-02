@@ -10,9 +10,12 @@ class EnglishClass(models.Model):
         Done = 'Done', _('Done')
 
     class Level(models.TextChoices):
-        A = 'A', _('A')
-        B = 'B', _('B')
-        C = 'C', _('C')
+        A1 = 'A1', _('A1')
+        A2 = 'A2', _('A2')
+        B1 = 'B1', _('B1')
+        B2 = 'B2', _('B2')
+        C1 = 'C1', _('C1')
+        C2 = 'C2', _('C2')
     date = models.DateField()
     time_start = models.TimeField()
     time_end = models.TimeField()
@@ -21,7 +24,7 @@ class EnglishClass(models.Model):
     level = models.CharField(
         max_length=5,
         choices=Level.choices,
-        default=Level.A
+        default=Level.A1
     )
     eventId = models.CharField(max_length=256)
     status = models.CharField(
